@@ -24,5 +24,7 @@ namespace ShoppingApi.Controllers
             GetProductDetailsResponse response = await _productLookup.GetProductById(Id);
             return this.Maybe(response);
         }
+
+
     }
 }

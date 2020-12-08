@@ -22,6 +22,9 @@ namespace ShoppingApi.Data
             modelBuilder.Entity<Product>().Property(p => p.Name)
                 .HasMaxLength(200)
                 .IsRequired();
+
+            modelBuilder.Entity<Product>().Property(p => p.Price)
+                .HasColumnType("decimal(18,4)");
         }
     }
 }
