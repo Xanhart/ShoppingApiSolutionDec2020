@@ -32,6 +32,7 @@ namespace ShoppingApi
 
             services.AddControllers();
             services.AddScoped<ILookupProducts, EfSqlProducts>();
+            services.AddScoped<ICommandProducts, EfSqlProducts>();
             services.AddDbContext<ShoppingDataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("shopping"));
@@ -44,6 +45,12 @@ namespace ShoppingApi
 
             services.AddSingleton<IMapper>(mapper);
             services.AddSingleton<MapperConfiguration>(mapperConfiguration);
+
+
+            // this is to get the markup percentage and apply it to the cost of the product. Kinda wonky but 
+            var configForPringing = new ConfigurationForPricing();
+            Configuration.GetSection(configForPringing.SectionName).Bind(configForPringing);
+            services.Configure<ConfigurationForPricing>(Configuration.GetSection(configForPringing.SectionName));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
